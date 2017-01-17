@@ -1,6 +1,5 @@
 package com.smolus.labyrinth.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -29,6 +28,11 @@ public abstract class AbstractScreen implements Screen{
         this.game = game;
         createCamera();
         createViewport();
+        createBatch();
+    }
+
+    private void createBatch() {
+        spriteBatch = new SpriteBatch();
     }
 
     private void createViewport() {
