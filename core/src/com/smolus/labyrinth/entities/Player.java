@@ -39,4 +39,11 @@ public class Player {
         m.render(modelInstance, e);
     }
 
+    public void move(int x, int y){
+        this.x += x * 0.0005f;
+        this.y += y * 0.0005f;
+        modelInstance.transform.setTranslation(this.x, this.y, 0);
+    }
+
+
 }

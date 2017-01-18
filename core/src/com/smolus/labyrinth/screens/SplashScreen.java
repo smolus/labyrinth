@@ -2,7 +2,6 @@ package com.smolus.labyrinth.screens;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
 import com.smolus.labyrinth.LabyrinthGame;
 

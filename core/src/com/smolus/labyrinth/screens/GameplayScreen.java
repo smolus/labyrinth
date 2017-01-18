@@ -3,16 +3,10 @@ package com.smolus.labyrinth.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Attributes;
-import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.smolus.labyrinth.LabyrinthGame;
+import com.smolus.labyrinth.entities.Joystick;
 import com.smolus.labyrinth.entities.Player;
 
 /**
@@ -21,8 +15,9 @@ import com.smolus.labyrinth.entities.Player;
 
 public class GameplayScreen extends Abstract3dScreen{
 
-    PointLight pointLight;
-    Player player;
+    private PointLight pointLight;
+    private Player player;
+    private Joystick joystick;
 
     public GameplayScreen(LabyrinthGame game){
         super(game);
@@ -32,11 +27,8 @@ public class GameplayScreen extends Abstract3dScreen{
     private void init(){
         pointLight = new PointLight().set(Color.WHITE, 0, 0, 3f, 4f);
         environment.add(pointLight);
-        Texture texture = new Texture(Gdx.files.internal("badlogic.jpg"));
-        Image image = new Image(texture);
-        image.setPosition(0,0);
-        stage.addActor(image);
         player = new Player(0,0);
+        joystick = new Joystick(stage);
     }
 
     @Override
@@ -45,6 +37,16 @@ public class GameplayScreen extends Abstract3dScreen{
         modelBatch.begin(camera);
         player.show(modelBatch, environment);
         modelBatch.end();
+        if(Gdx.input.justTouched()){
+            joystick.setup(Gdx.input.getX(), Gdx.input.getY());
+        }
+        if(Gdx.input.isTouched()){
+            joystick.update(Gdx.input.getX(),Gdx.input.getY());
+            joystick.show();
+            player.move(joystick.getDifferenceX(), joystick.getDifferenceY());
+        }else{
+            joystick.hide();
+        }
         stage.act();
         stage.draw();
     }
