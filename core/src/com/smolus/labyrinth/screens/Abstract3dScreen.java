@@ -46,7 +46,7 @@ public abstract class Abstract3dScreen implements Screen{
         camera = new PerspectiveCamera();
         camera.near = 0.1f;
         camera.far = 11f;
-        camera.position.set(0,0,2f);
+        camera.position.set(0,0,4f);
         camera.lookAt(0,0,0);
     }
 
