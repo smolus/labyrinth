@@ -29,7 +29,7 @@ public class Player {
 
     private void initModel() {
         ModelBuilder modelBuilder = new ModelBuilder();
-        model = modelBuilder.createBox(1f, 1f, 1f, new Material(ColorAttribute.createDiffuse(Color.GREEN)), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+        model = modelBuilder.createSphere(1f,1f,1f, 20, 20, new Material(ColorAttribute.createDiffuse(Color.GREEN)), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
         modelInstance = new ModelInstance(model);
         modelInstance.transform.setTranslation(x, y, 0);
     }
