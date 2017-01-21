@@ -34,6 +34,7 @@ public class Joystick {
         smallX = x;
         bigY = y;
         smallY = y;
+        reposition();
     }
 
     public void update(int x, int y){

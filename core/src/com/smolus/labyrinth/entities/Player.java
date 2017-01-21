@@ -36,7 +36,7 @@ public class Player {
 
 
     public void show(ModelBatch m, Environment e){
-        m.render(modelInstance, e);
+        //m.render(modelInstance, e);
     }
 
     public void move(int x, int y){

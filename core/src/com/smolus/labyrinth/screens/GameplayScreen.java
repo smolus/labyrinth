@@ -25,22 +25,21 @@ public class GameplayScreen extends Abstract3dScreen{
     private Joystick joystick;
     private Model wallModel;
     private ModelInstance[] wallInstances = new ModelInstance[121];
+    private ModelInstance floor;
     private Generator generator = new Generator(11);
 
     public GameplayScreen(LabyrinthGame game){
         super(game);
         init();
+        initModels();
     }
 
-    private void init(){
-        pointLight = new PointLight().set(Color.WHITE, 0, 0, 3f, 4f);
-        environment.add(pointLight);
-        player = new Player(0,0);
-        joystick = new Joystick(stage);
-
+    private void initModels(){
         ModelBuilder modelBuilder = new ModelBuilder();
-        wallModel = modelBuilder.createBox(1f,1f,1f,new Material(ColorAttribute.createDiffuse(Color.BLUE)), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+        wallModel = modelBuilder.createBox(1f,1f,1f,new Material(ColorAttribute.createDiffuse(Color.GRAY)), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
         Model nothing = modelBuilder.createBox(0,0,0, new Material(), VertexAttributes.Usage.Position);
+        Model temp = modelBuilder.createBox(11f,11f,0.1f,new Material(ColorAttribute.createAmbient(Color.GRAY)), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal );
+        floor = new ModelInstance(temp,5f,5f,-0.05f);
         for(int i = 0; i < 11; i++){
             for(int j = 0; j < 11; j++){
                 if(generator.board[i + j*11] == 1) {
@@ -50,6 +49,13 @@ public class GameplayScreen extends Abstract3dScreen{
                 }
             }
         }
+    }
+
+    private void init(){
+        pointLight = new PointLight().set(Color.WHITE, 0, 0, 0.5f, 1f);
+        environment.add(pointLight);
+        player = new Player(0,0);
+        joystick = new Joystick(stage);
     }
 
     @Override
@@ -62,6 +68,7 @@ public class GameplayScreen extends Abstract3dScreen{
                 modelBatch.render(wallInstances[i + j*11], environment);
             }
         }
+        //modelBatch.render(floor, environment);
         modelBatch.end();
         if(Gdx.input.justTouched()){
             joystick.setup(Gdx.input.getX(), Gdx.input.getY());
